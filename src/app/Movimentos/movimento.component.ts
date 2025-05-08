@@ -50,7 +50,7 @@ export class MovimentoComponent implements OnInit {
     datAno: [null, [Validators.required, Validators.pattern('^[0-9]{4}$')]],
     codProduto: [null, Validators.required],
     codCosif: [null, Validators.required],
-    valValor: [null, [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
+    valValor: [null as string | null, [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
     desDescricao: [null, [Validators.required, Validators.maxLength(200)]],
   });
  
@@ -70,6 +70,19 @@ export class MovimentoComponent implements OnInit {
   limpar() {
     this.movimentoForm.reset();
     this.movimentoForm.disable();
+  }
+
+  formatarValor(): void {
+    let rawValue = this.movimentoForm.get('valValor')?.value || '';
+    rawValue = rawValue.replace(/\D/g, ''); // Remove não dígitos
+  
+    if (rawValue.length === 0) {
+      this.movimentoForm.get('valValor')?.setValue('');
+      return;
+    }
+  
+    const valor = (parseInt(rawValue, 10) / 100).toFixed(2);
+    this.movimentoForm.get('valValor')?.setValue(valor, { emitEvent: false });
   }
 }
 

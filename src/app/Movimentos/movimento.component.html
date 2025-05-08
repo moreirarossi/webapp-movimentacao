@@ -52,7 +52,7 @@
           <div class="form-row">
             <label class="form-label">Valor</label>
             <mat-form-field appearance="fill" class="form-input half-width">
-              <input matInput formControlName="valValor" pattern="^[0-9]+(\.[0-9]{1,2})?$" />
+              <input matInput formControlName="valValor" class="money-input"  (input)="formatarValor()" />
             </mat-form-field>
           </div>
     

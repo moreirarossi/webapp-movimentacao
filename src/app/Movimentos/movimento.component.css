@@ -39,6 +39,10 @@ th, td {
   width: 10%;
 }
 
+.money-input {
+  text-align: right;
+}
+
 ::ng-deep .mat-header-row .mat-column-valValor {
   text-align: center;
   width: 10%;
