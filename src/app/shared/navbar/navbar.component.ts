@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { ROUTES } from '../../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 
 @Component({
@@ -8,6 +9,7 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 })
 
 export class NavbarComponent implements OnInit{
+    private listTitles: any[];
     location: Location;
     private toggleButton: any;
     private sidebarVisible: boolean;
@@ -18,6 +20,7 @@ export class NavbarComponent implements OnInit{
     }
 
     ngOnInit(){
+      this.listTitles = ROUTES.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
     }
@@ -51,6 +54,12 @@ export class NavbarComponent implements OnInit{
       var titlee = this.location.prepareExternalUrl(this.location.path());
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
+      }
+
+      for(var item = 0; item < this.listTitles.length; item++){
+          if(this.listTitles[item].path === titlee){
+              return this.listTitles[item].title;
+          }
       }
       return 'Movimentos Manuais';
     }
