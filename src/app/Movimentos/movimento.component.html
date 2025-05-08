@@ -1,11 +1,12 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title class="text-center">Movimentos Manuais</mat-card-title>
-  </mat-card-header>
+ <mat-card-title class="text-center">Movimentos Manuais</mat-card-title>
 
   <mat-card-content>
-    <div class="form-container">
-      <div class="form-left">
+    <mat-card-header>
+      <mat-card-title class="text-center">Movimentos</mat-card-title>
+    </mat-card-header>
+      <div class="form-container">
+        <div class="form-left">
         <form [formGroup]="movimentoForm" (ngSubmit)="adicionarMovimento()">
     
           <div class="form-row-group">
@@ -41,7 +42,7 @@
             <mat-form-field appearance="fill" class="form-input">
               <mat-select formControlName="codCosif">
                 <mat-option *ngFor="let cosif of cosifs" [value]="cosif.codCosif">
-                  {{ cosif.codCosif }} - {{ cosif.codClassificacao }}
+                  {{ cosif.codCosif }} - ({{ cosif.codClassificacao }})
                 </mat-option>
               </mat-select>
             </mat-form-field>
