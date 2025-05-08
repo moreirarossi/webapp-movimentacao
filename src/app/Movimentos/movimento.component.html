@@ -1,0 +1,50 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title class="text-center">Lista de Movimentos</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="table-responsive">
+      <table mat-table [dataSource]="movimentos" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="datMes">
+          <th mat-header-cell *matHeaderCellDef> Mês </th>
+          <td mat-cell *matCellDef="let movimento"> {{ movimento.datMes }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="datAno">
+          <th mat-header-cell *matHeaderCellDef> Ano </th>
+          <td mat-cell *matCellDef="let movimento"> {{ movimento.datAno }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="codProduto">
+          <th mat-header-cell *matHeaderCellDef> Código do Produto </th>
+          <td mat-cell *matCellDef="let movimento"> {{ movimento.codProduto }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="desProduto">
+          <th mat-header-cell *matHeaderCellDef> Descrição do Produto </th>
+          <td mat-cell *matCellDef="let movimento"> {{ movimento.desProduto }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numLancamento">
+          <th mat-header-cell *matHeaderCellDef> NR Lançamento </th>
+          <td mat-cell *matCellDef="let movimento"> {{ movimento.numLancamento }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="desDescricao">
+          <th mat-header-cell *matHeaderCellDef> Descrição </th>
+          <td mat-cell *matCellDef="let movimento"> {{ movimento.desDescricao }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="valValor">
+          <th mat-header-cell *matHeaderCellDef> Valor </th>
+          <td mat-cell *matCellDef="let movimento"> {{ movimento.valValor }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>
