@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, delay, Observable, of, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Movimento } from 'app/Model/movimento.model';
+import { MovimentoResponse } from 'app/Model/movimento-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class MovimentoService {
 
   private apiUrl = environment.apiUrl;
 
-  buscarListaMovimentos(): Observable<Movimento[]> {
-    return this.http.get<Movimento[]>(`${this.apiUrl}/Movimentos`).pipe(
+  buscarListaMovimentos(): Observable<MovimentoResponse[]> {
+    return this.http.get<MovimentoResponse[]>(`${this.apiUrl}/Movimentos`).pipe(
       catchError(this.handleError)
     );
   }

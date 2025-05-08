@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MovimentoService } from 'app/services/movimento.service';
 import { ProdutoService } from 'app/services/produto.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Movimento } from '../Model/movimento.model';
 
 @Component({
   selector: 'app-movimento',
@@ -18,7 +19,7 @@ export class MovimentoComponent implements OnInit {
     'desDescricao',
     'valValor'
   ];
-  movimentos: any[] = [];
+  movimentosResponse: any[] = [];
   produtos: any[] = [];
   cosifs: any[] = [];
 
@@ -29,12 +30,9 @@ export class MovimentoComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    this.movimentoService.buscarListaMovimentos().subscribe((data: any[]) => {
-      this.movimentos = data;
-      this.movimentoForm.disable();
-    });
+    this.carregarMovimentos();
     this.produtoService.buscarListaProdutos().subscribe((produtos: any[]) => {
-      this.produtos = produtos;
+    this.produtos = produtos;
     });
     this.movimentoForm.get('codProduto')?.valueChanges.subscribe(codProduto => {
       if (codProduto) {
@@ -42,6 +40,12 @@ export class MovimentoComponent implements OnInit {
           this.cosifs = cosifs;
         });
       }
+    });
+  }
+
+  carregarMovimentos() {
+    this.movimentoService.buscarListaMovimentos().subscribe((data: any[]) => {
+      this.movimentosResponse = data;
     });
   }
 
@@ -57,10 +61,27 @@ export class MovimentoComponent implements OnInit {
   adicionarMovimento() {
     if (this.movimentoForm.invalid) return;
   
-    const novoMovimento = this.movimentoForm.value;
-    this.movimentos.push(novoMovimento);
-    this.movimentos = [...this.movimentos];
-    this.movimentoForm.reset();
+    const novoMovimento: Movimento = {
+      datMes: Number(this.movimentoForm.value.datMes),
+      datAno: Number(this.movimentoForm.value.datAno),
+      codProduto: String(this.movimentoForm.value.codProduto),
+      codCosif: String(this.movimentoForm.value.codCosif),
+      desDescricao: String(this.movimentoForm.value.desDescricao),
+      valValor: Number(this.movimentoForm.value.valValor),
+    };
+  
+    this.movimentoService.criarMovimento(novoMovimento).subscribe({
+      next: (movimentoSalvo) => {
+        this.movimentosResponse.push(movimentoSalvo);
+        this.movimentosResponse = [...this.movimentosResponse];
+        this.movimentoForm.reset();
+        this.movimentoForm.disable();
+        this.carregarMovimentos();
+      },
+      error: (err) => {
+        console.error('Erro ao salvar movimento:', err);
+      }
+    });
   }
 
   novo() {
