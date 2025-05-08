@@ -5,10 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LbdModule } from '../../lbd/lbd.module';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { HomeComponent } from '../../home/home.component';
-import { ClienteComponent } from 'app/Clientes/cliente-listar/cliente.component';
 import { MovimentoComponent } from 'app/Movimentos/movimento.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ClienteCriarComponent } from 'app/Clientes/cliente-criar/cliente-criar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkStepperModule } from '@angular/cdk/stepper';
@@ -99,9 +97,7 @@ import { NgxMaskModule } from 'ngx-mask';
   ],
   declarations: [
     HomeComponent,
-    ClienteComponent,
-    MovimentoComponent,
-    ClienteCriarComponent
+    MovimentoComponent
   ]
 })
 
