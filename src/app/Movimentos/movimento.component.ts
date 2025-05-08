@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MovimentoService } from 'app/services/movimento.service';
+import { ProdutoService } from 'app/services/produto.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -18,9 +19,12 @@ export class MovimentoComponent implements OnInit {
     'valValor'
   ];
   movimentos: any[] = [];
+  produtos: any[] = [];
+  cosifs: any[] = [];
 
   constructor(
     private movimentoService: MovimentoService,
+    private produtoService: ProdutoService,
     private fb: FormBuilder
   ) {}
   
@@ -28,6 +32,16 @@ export class MovimentoComponent implements OnInit {
     this.movimentoService.buscarListaMovimentos().subscribe((data: any[]) => {
       this.movimentos = data;
       this.movimentoForm.disable();
+    });
+    this.produtoService.buscarListaProdutos().subscribe((produtos: any[]) => {
+      this.produtos = produtos;
+    });
+    this.movimentoForm.get('codProduto')?.valueChanges.subscribe(codProduto => {
+      if (codProduto) {
+        this.produtoService.buscarListaCosifs(codProduto).subscribe(cosifs => {
+          this.cosifs = cosifs;
+        });
+      }
     });
   }
 
@@ -39,17 +53,7 @@ export class MovimentoComponent implements OnInit {
     valValor: [null, [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
     desDescricao: [null, [Validators.required, Validators.maxLength(200)]],
   });
-
-  produtos = [
-    { codigo: 'P001', descricao: 'Produto 1' },
-    { codigo: 'P002', descricao: 'Produto 2' }
-  ];
-  
-  cosifs = [
-    { codigo: 'C001', descricao: 'Cosif 1' },
-    { codigo: 'C002', descricao: 'Cosif 2' }
-  ];
-  
+ 
   adicionarMovimento() {
     if (this.movimentoForm.invalid) return;
   

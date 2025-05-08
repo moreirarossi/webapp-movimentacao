@@ -12,7 +12,7 @@
             <div class="form-row">
               <label class="form-label">Mês:</label>
               <mat-form-field appearance="fill" class="form-input">
-                <input matInput formControlName="datMes" maxlength="2" pattern="[0-9]*" />
+                <input matInput type="number" min="1" max="12" formControlName="datMes" />
               </mat-form-field>
             </div>
           
@@ -29,8 +29,8 @@
             <label class="form-label">Produto:</label>
             <mat-form-field appearance="fill" class="form-input">
               <mat-select formControlName="codProduto">
-                <mat-option *ngFor="let produto of produtos" [value]="produto.codigo">
-                  {{ produto.descricao }}
+                <mat-option *ngFor="let produto of produtos" [value]="produto.codProduto">
+                  {{ produto.desProduto }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -40,12 +40,13 @@
             <label class="form-label">Cosif:</label>
             <mat-form-field appearance="fill" class="form-input">
               <mat-select formControlName="codCosif">
-                <mat-option *ngFor="let cosif of cosifs" [value]="cosif.codigo">
-                  {{ cosif.descricao }}
+                <mat-option *ngFor="let cosif of cosifs" [value]="cosif.codCosif">
+                  {{ cosif.codCosif }} - {{ cosif.codClassificacao }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </div>
+
         </div>
     
           <div class="form-row">

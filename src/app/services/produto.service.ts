@@ -2,30 +2,30 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, delay, Observable, of, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Movimento } from 'app/Model/movimento.model';
+import { Produto } from 'app/Model/produto.model';
+import { Cosif } from 'app/Model/cosif.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MovimentoService {
+export class ProdutoService {
 
   constructor(private http: HttpClient) {}
 
   private apiUrl = environment.apiUrl;
 
-  buscarListaMovimentos(): Observable<Movimento[]> {
-    return this.http.get<Movimento[]>(`${this.apiUrl}/Movimentos`).pipe(
+  buscarListaProdutos(): Observable<Produto[]> {
+    return this.http.get<Produto[]>(`${this.apiUrl}/Produtos`).pipe(
       catchError(this.handleError)
     );
   }
 
-  criarMovimento(movimento: Movimento): Observable<Movimento> {
-    return this.http.post<Movimento>(`${this.apiUrl}/Movimentos`, movimento).pipe(
+  buscarListaCosifs(codProduto: string): Observable<Cosif[]> {
+    return this.http.get<Cosif[]>(`${this.apiUrl}/Produtos/${codProduto}/cosif`).pipe(
       catchError(this.handleError)
     );
   }
 
-  
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Ocorreu um erro desconhecido!';
 
