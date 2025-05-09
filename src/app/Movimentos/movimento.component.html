@@ -65,7 +65,7 @@
           <div class="text-right mt-2">
             <button mat-raised-button color="primary" (click)="limpar()">Limpar</button>
             <button mat-raised-button color="primary" (click)="novo()">Novo</button>
-            <button mat-raised-button color="accent" type="submit" [disabled]="movimentoForm.disabled">
+            <button mat-raised-button color="accent" (click)="criarMovimento()" [disabled]="movimentoForm.disabled">
               Incluir
             </button>            
           </div>

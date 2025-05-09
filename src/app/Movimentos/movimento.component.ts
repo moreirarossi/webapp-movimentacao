@@ -3,6 +3,7 @@ import { MovimentoService } from 'app/services/movimento.service';
 import { ProdutoService } from 'app/services/produto.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Movimento } from '../Model/movimento.model';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-movimento',
@@ -26,7 +27,8 @@ export class MovimentoComponent implements OnInit {
   constructor(
     private movimentoService: MovimentoService,
     private produtoService: ProdutoService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {}
   
   ngOnInit(): void {
@@ -46,6 +48,7 @@ export class MovimentoComponent implements OnInit {
   carregarMovimentos() {
     this.movimentoService.buscarListaMovimentos().subscribe((data: any[]) => {
       this.movimentosResponse = data;
+      this.cdr.detectChanges();
     });
   }
 
@@ -58,7 +61,7 @@ export class MovimentoComponent implements OnInit {
     desDescricao: [null, [Validators.required, Validators.maxLength(200)]],
   });
  
-  adicionarMovimento() {
+  criarMovimento() {
     if (this.movimentoForm.invalid) return;
   
     const novoMovimento: Movimento = {
